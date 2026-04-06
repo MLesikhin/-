@@ -17,4 +17,4 @@ void readFromFile(const char* fileName, struct Box& box) {
     
     in.read(reinterpret_cast<char*>(&box), sizeof(Box));
     in.close();
-}
+} 
