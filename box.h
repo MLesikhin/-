@@ -22,4 +22,4 @@ struct Box {
     friend std::ostream& operator<<(std::ostream& os, const Box& b);
 };
 
-#endif // BOX_H 
+#endif // BOX_H  
