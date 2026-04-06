@@ -16,4 +16,4 @@ std::ostream& operator<<(std::ostream& os, const Box& b) {
     os << "len = " << b.len << ", width = " << b.width
        << ", height = " << b.height << ", volume = " << b.volume << '\n';
     return os;
-}
+} 
