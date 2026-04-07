@@ -1,4 +1,4 @@
-#include "fraction.h"
+#include "RK_1.h"
 #include <cstdlib> // для std::abs
 
 // Наибольший общий делитель (алгоритм Евклида)
