@@ -38,7 +38,7 @@ void Fraction::normalize() {
     den /= g;
 }
 
-std::ostream& operator<<(std::ostream& os, const Fraction& f) {
+std::ostream& operator<<(std::ostream& os, const Fraction& f) { // перегружаем оператор вывода
     os << f.num << " / " << f.den;
     return os;
 }
