@@ -1,7 +1,7 @@
 #include "RK_1.h"
 #include <cstdlib> // для std::abs
 
-// Наибольший общий делитель (алгоритм Евклида)
+// Наибольший общий делитель
 int gcd(int a, int b) {
     a = std::abs(a);
     b = std::abs(b);
