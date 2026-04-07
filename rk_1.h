@@ -1,5 +1,5 @@
-#ifndef RK_1_H
-#define RK_1_H
+#ifndef BOX_H
+#define BOX_H
 
 #include <iostream>
 
@@ -22,4 +22,4 @@ struct Box {
     friend std::ostream& operator<<(std::ostream& os, const Box& b);
 };
 
-#endif // RK_1_H
+#endif // BOX_H
