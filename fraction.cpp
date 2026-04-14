@@ -1,4 +1,4 @@
-#include "RK_1.h"
+#include "fraction.h"
 #include <cstdlib> // для std::abs
 
 // Наибольший общий делитель
