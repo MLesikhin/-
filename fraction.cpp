@@ -1,69 +1,81 @@
 #include "fraction.h"
-#include <cstdlib> // для std::abs
 
-// Наибольший общий делитель (алгоритм Евклида)
+// Конструктор по умолчанию (ДЗ SW_4 + РК_1)
+Fraction::Fraction() : _numerator(0), _denominator(1) {}
+
+// Конструктор с параметрами (ДЗ SW_4 + РК_1)
+Fraction::Fraction(int numerator, int denominator) 
+    : _numerator(numerator), _denominator(denominator) {}
+
+// Алгоритм Евклида для нахождения НОД
 int gcd(int a, int b) {
-    a = std::abs(a);
-    b = std::abs(b);
+    a = (a < 0) ? -a : a;
+    b = (b < 0) ? -b : b;
     while (b != 0) {
-        int t = b;
+        int temp = b;
         b = a % b;
-        a = t;
+        a = temp;
     }
     return a;
 }
 
-Fraction::Fraction() : num(0), den(1) {}
-
-Fraction::Fraction(int numerator, int denominator) {
-    if (denominator == 0) {
-        // обработка ошибки: знаменатель не может быть 0
-        den = 1;
-        num = 0;
-    } else {
-        num = numerator;
-        den = denominator;
-        normalize();
+// Сокращение дроби (ДЗ SW_4)
+int fracReduction(Fraction& frac) {
+    if (frac._denominator == 0) {
+        return -1;
     }
-}
-
-void Fraction::normalize() {
-    if (den == 0) return;
-    if (den < 0) {   // переносим знак в числитель
-        num = -num;
-        den = -den;
+    
+    int divisor = gcd(frac._numerator, frac._denominator);
+    frac._numerator /= divisor;
+    frac._denominator /= divisor;
+    
+    // Обеспечим, чтобы знаменатель был положительным
+    if (frac._denominator < 0) {
+        frac._numerator = -frac._numerator;
+        frac._denominator = -frac._denominator;
     }
-    int g = gcd(num, den);
-    num /= g;
-    den /= g;
+    
+    return 0;
 }
 
-std::ostream& operator<<(std::ostream& os, const Fraction& f) {
-    os << f.num << " / " << f.den;
-    return os;
-}
-
+// Сложение дробей (РК_1)
 Fraction sum(const Fraction& fr1, const Fraction& fr2) {
-    int new_num = fr1.num * fr2.den + fr2.num * fr1.den;
-    int new_den = fr1.den * fr2.den;
-    return Fraction(new_num, new_den);
+    Fraction result;
+    result._numerator = fr1._numerator * fr2._denominator + fr2._numerator * fr1._denominator;
+    result._denominator = fr1._denominator * fr2._denominator;
+    fracReduction(result);
+    return result;
 }
 
+// Вычитание дробей (РК_1)
 Fraction sub(const Fraction& fr1, const Fraction& fr2) {
-    int new_num = fr1.num * fr2.den - fr2.num * fr1.den;
-    int new_den = fr1.den * fr2.den;
-    return Fraction(new_num, new_den);
+    Fraction result;
+    result._numerator = fr1._numerator * fr2._denominator - fr2._numerator * fr1._denominator;
+    result._denominator = fr1._denominator * fr2._denominator;
+    fracReduction(result);
+    return result;
 }
 
+// Умножение дробей (РК_1)
 Fraction mul(const Fraction& fr1, const Fraction& fr2) {
-    int new_num = fr1.num * fr2.num;
-    int new_den = fr1.den * fr2.den;
-    return Fraction(new_num, new_den);
+    Fraction result;
+    result._numerator = fr1._numerator * fr2._numerator;
+    result._denominator = fr1._denominator * fr2._denominator;
+    fracReduction(result);
+    return result;
 }
 
+// Деление дробей (РК_1)
 Fraction div(const Fraction& fr1, const Fraction& fr2) {
-    // деление на ноль не проверяется для простоты
-    int new_num = fr1.num * fr2.den;
-    int new_den = fr1.den * fr2.num;
-    return Fraction(new_num, new_den);
+    Fraction result;
+    result._numerator = fr1._numerator * fr2._denominator;
+    result._denominator = fr1._denominator * fr2._numerator;
+    fracReduction(result);
+    return result;
+}
+
+// Переопределение оператора вывода << для Fraction
+std::ostream& operator<<(std::ostream& os, const Fraction& frac) {
+    os << frac._numerator << " / " << frac._denominator;
+    return os;
 }
