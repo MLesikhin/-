@@ -1,14 +1,24 @@
 #ifndef SORTS_H
 #define SORTS_H
 
-// Сортировка выбором с возможностью задания направления
-// ar - указатель на массив
-// size - размер массива
-// ascending - если true, сортировка по возрастанию; иначе по убыванию
-void selectionSort(int* ar, unsigned int size, bool ascending);
+// Функции-компараторы
+bool defaultComp(int a, int b);   // по возрастанию
+bool reverseComp(int a, int b);   // по убыванию
 
-// Проверка отсортированности массива
-// Возвращает: 1 - по возрастанию, -1 - по убыванию, 0 - не отсортирован
-int isSorted(const int* array, unsigned int size);
+// Прототипы функций сортировок
+void bubbleSort(int* ar, int size, bool (*comp)(int, int));      // пузырьковая сортировка
+void selectionSort(int* ar, int size, bool (*comp)(int, int));   // сортировка выбором
+void insertionSort(int* ar, int size, bool (*comp)(int, int));   // сортировка вставками
+void mergeSort(int* ar, int size, bool (*comp)(int, int));       // сортировка слиянием
+void quickSort(int* ar, int size, bool (*comp)(int, int));       // быстрая сортировка (Хоара)
+void sortShell(int* ar, int size, bool (*comp)(int, int));       // сортировка Шелла
+void countSort(int* ar, int size, bool (*comp)(int, int));       // сортировка подсчётом
+
+// Вспомогательные функции для сортировок
+void swap(int& a, int& b);
+void merge(int* ar, int left, int mid, int right, bool (*comp)(int, int));
+void mergeSortHelper(int* ar, int left, int right, bool (*comp)(int, int));
+int partition(int* ar, int left, int right, bool (*comp)(int, int));
+void quickSortHelper(int* ar, int left, int right, bool (*comp)(int, int));
 
 #endif // SORTS_H
